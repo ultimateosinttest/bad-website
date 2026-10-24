@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ديس شيت </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="bd">
+    <hr>
+    <div class="frmm">
+        <input name="message" id="kaka" placeholder="اهبد هنا" required>
+        <input type="button" id="send" value="حفظ">
+    </div>
+    <script>
+        const button = document.getElementById("send");
+        const kaka = document.getElementById("kaka");
+        const bd = document.getElementById("bd");
+
+        wss = new WebSocket("ws://78.154.103.20:14421/");
+
+        button.addEventListener("click", () => {
+            wss.send(kaka.value);
+        });
+
+        wss.onmessage = (event) => {
+            const message = event.data;
+            
+            msg = document.createElement("h1");
+            msg.innerHTML = message;
+            bd.appendChild(msg);
+        }
+    </script>
+</body>
+</html>
